@@ -1,7 +1,7 @@
 // Main JavaScript file
 
 // 1. Declare the maps, script panels, and different thematic layers.
-let map, scriptPanel = scrollama(), countyLayer;
+let map, scriptPanel = scrollama(), stateLayer, countyLayer;
 
 // 2. Initialize the layout.
 // ... 
