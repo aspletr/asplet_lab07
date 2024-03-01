@@ -269,41 +269,27 @@
       
       
       map.on('mousemove', ({ point }) => {
-        const features = map.queryRenderedFeatures(point, {
-            layers: ['state-polygons']
-        });
+      const stateFeatures = map.queryRenderedFeatures(point, {
+        layers: ['state-polygons']
+      });
 
-        if (features.length) {
-            const ACRES = features[0].properties.ACRES;
-            const FIRENAME = features[0].properties.FIRENAME;
+      const countyFeatures = map.queryRenderedFeatures(point, {
+        layers: ['county-points']
+      });
 
-            // Display tooltip with county name and cases
-            document.getElementById('textid').innerHTML = `<h3>Name of wildfire ${FIRENAME}</h3><p><strong><em>${ACRES}</strong> total acres burned.</em></p>`;
-        } else {
-            // Hide tooltip if not hovering over a county
-            document.getElementById('textid').innerHTML = '';
-        }
-    });
-      
-      
-      
-      
-      
-      map.on('mousemove', ({ point }) => {
-        const features = map.queryRenderedFeatures(point, {
-            layers: ['county-points']
-        });
-
-        if (features.length) {
-            const NAME = features[0].properties.NAME;
-            const MajorCity = features[0].properties.MajorCity;
-
-            // Display tooltip with city name and saying if it is a major city
-            document.getElementById('tooltip').innerHTML = `<h3>City Name: ${NAME}</h3><p><strong><em>${MajorCity}</strong> this is a major city.</em></p>`;
-        } else {
-            // Hide tooltip if not hovering over a county
-            document.getElementById('tooltip').innerHTML = '';
-        }
+      if (stateFeatures.length) {
+        const ACRES = stateFeatures[0].properties.ACRES;
+        const FIRENAME = stateFeatures[0].properties.FIRENAME;
+        document.getElementById('textid').innerHTML = `<h3>Name of wildfire ${FIRENAME}</h3><p><strong><em>${ACRES}</strong> total acres burned.</em></p>`;
+      } else if (countyFeatures.length) {
+        const NAME = countyFeatures[0].properties.NAME;
+        const MajorCity = countyFeatures[0].properties.MajorCity;
+        document.getElementById('tooltip').innerHTML = `<h3>City Name: ${NAME}</h3><p><strong><em>${MajorCity}</strong> this is a major city.</em></p>`;
+      } else {
+        // Hide tooltip if not hovering over any layer
+        document.getElementById('textid').innerHTML = '';
+        document.getElementById('tooltip').innerHTML = '';
+      }
     });
 
     };
