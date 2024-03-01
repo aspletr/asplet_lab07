@@ -117,21 +117,13 @@
 
       // 6 wait till the data of washington state and county are fully loaded.
       let response, state, county;
-      try {
-        response = await fetch("assets/WA_large_fires.geojson");
-        state = await response.json();
-      } catch(err) {
-        console.log('fires');
-        console.log('error', err);
-      }
-      try {
-        response = await fetch("assets/city_points.geojson");
-        
+      
+      response = await fetch("assets/WA_large_fires.geojson");
+      state = await response.json();
+      
+      response = await fetch("assets/city_points.geojson");
       county = await response.json(); 
-      } catch(err) {
-        console.log('county');
-        console.log('error', err);
-      }
+      
 
 
       // 7. Trigger operations inside of the the ()=> {} funciton while loading the map.
